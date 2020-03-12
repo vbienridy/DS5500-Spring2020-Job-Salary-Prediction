@@ -10,8 +10,10 @@ Today, people are used to seeking ideal jobs online since there are so many job-
 
 ## Dataset Overview
 
-The dataset we’re using is collected by Adzuna, a London headquartered company which collected millions of job advertisements to provide smart search engines for employers and employees. The main dataset consists of a large number of records representing individual job advertisements, and a series of fields about each job advertisement. These fields include mostly unstructured and free text-based features, such as advertisement id, job title, job description, raw location of the job, normalized location created by Adzuna, contract type, hiring company, contract type, raw salary, normalized salary created by Adzuna and the source of advertisement. 
+The dataset we’re using is collected by Adzuna, a London headquartered company which collected millions of job advertisements to provide smart search engines for employers and employees. The main dataset consists of a large number of records representing individual job advertisements, and a series of fields about each job advertisement. These fields include mostly unstructured and free text-based features, such as advertisement id, job title, job description, raw location of the job, normalized location created by Adzuna, contract type, hiring company, contract type, raw salary, normalized salary created by Adzuna and the source of advertisement.
+
 The normalized, annualized salary interpreted by Adzuna is the target value to be predicted in this project. It is a single value based on the midpoint of any range found in the raw salary. All data samples scraped by Adzuna company are real, live data used in job advertisements.[2] In order to make the data to more convenient for researchers, Adzuna has already divided the data into three datasets. There are 244768 data samples in the training dataset, 40663 samples in the validation dataset and 122463 samples in the test dataset.
+
 Adzuna has used this dataset to build a prediction model and a web application on its website: https://www.adzuna.co.uk/jobs/salary-predictor.html. It can directly give an estimated salary number through typing a job title and job description. As a result, the company reported that through evaluating over hundreds of algorithms and machine-learning approaches, the predicted salary is expected to be within 10% of the actual wage, which is impressive.[4]
 
 ## Proposed Plan Of Research
@@ -26,11 +28,32 @@ Since nowadays people are relying on job search engine heavily, it’s important
 
 ## Preliminary Results
 
+<p align="center">
+  <img src="https://github.com/vbienridy/DS5500-Spring2020-Job-Salary-Prediction/blob/master/proposal_images/salary_distribution_for_contract_type.png">
+</p>
+<p align="center">
+Figure 1: Salary distribution plot for different contract types
+</p>
+
 From the plot above, we see that most of the salary values for part-time jobs are centered and gathered around 12500 while the distribution of salary for full-time jobs is a smoother one with higher average annual salary. The distribution of salary for jobs with unknown ContractType is quite similar to the one for full-time jobs.
 
 There are in total 29 job categories in the training set. To explore its relationship with Salary, a density plot was drawn for the selected four categories, i.e. “IT Jobs”, “Legal Jobs”, “Maintenance Jobs”, “Scientific & QA Jobs”.
 
+<p align="center">
+  <img src="https://github.com/vbienridy/DS5500-Spring2020-Job-Salary-Prediction/blob/master/proposal_images/salary_distribution_for_category.png">
+</p>
+<p align="center">
+Figure 2: Salary distribution for selected job categories
+</p>
+
 From the plot above, we see that the job category variable contains useful information for predicting possible salary range. Jobs that require higher academic degree or specific domain knowledge are more likely to have higher annual salaries. Below are the box plots for all job categories in the dataset for reference.
+
+<p align="center">
+  <img src="https://github.com/vbienridy/DS5500-Spring2020-Job-Salary-Prediction/blob/master/proposal_images/box_plot_for_salary_with_category.png">
+</p>
+<p align="center">
+Figure 3: Salary distribution for all job categories
+</p>
 
 ## References
 
