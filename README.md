@@ -24,7 +24,9 @@ To solve the problem, let’s look at the predictor variables in the data. All p
 
 As for LocationRaw, we could apply NLP methods to capture useful information for prediction, but we are also thinking about converting the locations into spatial coordinates (longitude and latitude) and apply ml methods to recognize regions that may have higher level of wages than others. We believe that this information reveals more information about the salary ranges in a particular area within certain industry. For model training, we consider neural network or xgboost model to be a good choice for predicting annual salary with lots of NLP features.
 
-Since nowadays people are relying on job search engine heavily, it’s important to improve the transparency and accessibilities of the job market and information exchange with it. By extracting the semantics (such as skills required, domain knowledge) of the job ads, the candidates would be more prepared when negotiating with employers about the salary they should be paid. Therefore, model selection and parameter tuning would not be the primary focus of our project. We mainly want to explore the practical application of NLP techniques in job market. For further research, we may focus on finding the best matches between the two entities by extracting semantics from both job ads and candidate resumes, which could lead to faster and efficient employment.
+Since nowadays people are relying on job search engine heavily, it’s important to improve the transparency and accessibilities of the job market and information exchange with it. By extracting the semantics (such as skills required, domain knowledge) of the job ads, the candidates would be more prepared when negotiating with employers about the salary they should be paid.
+
+In this project, exploring the practical application of natural language processing and machine learning methods in job market is put as the top goal. For further research, we may focus on finding the best matches between the two entities by extracting semantics from both job ads and candidate resumes, which could lead to faster and efficient employment.
 
 ## Preliminary Results
 
