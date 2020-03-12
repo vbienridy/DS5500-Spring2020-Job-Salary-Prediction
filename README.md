@@ -59,13 +59,21 @@ Figure 3: Salary distribution for all job categories
 
 [1] Project Github Repository:
 https://github.com/vbienridy/DS5500-Spring2020-Job-Salary-Prediction
+
 [2] Source of Dataset:
 “Job Salary Prediction.” Kaggle, Adzuna, 2013, https://www.kaggle.com/c/job-salary-prediction/data
+
 [3] Sample web application for job salary prediction:
 https://www.adzuna.co.uk/jobs/salary-predictor.html
+
 [4] UK – ADZUNA ESTIMATES ONLINE VACANCY SALARIES. Staffing Industry Analysts, 26 July 2013, www2.staffingindustry.com/eng/Editorial/Daily-News/UK-Adzuna-estimates-online-vacancy-salaries-26628.
+
 [5] Word2Vec Wikipedia: https://en.wikipedia.org/wiki/Word2vec
+
 [6] Johnson, Catherine B., Matt L. Riggs, and Ronald G. Downey. "Fun with numbers: Alternative models for predicting salary levels." Research in Higher Education 27.4 (1987): 349-362.
+
 [7] Khongchai, Pornthep, and Pokpong Songmuang. "Implement of salary prediction system to improve student motivation using data mining technique." 2016 11th International Conference on Knowledge, Information and Creativity Support Systems (KICSS). IEEE, 2016.
+
 [8] Mikolov, Tomas, et al. "Efficient estimation of word representations in vector space." arXiv preprint arXiv:1301.3781 (2013).
+
 [9] Mikolov, Tomas, et al. "Distributed representations of words and phrases and their compositionality." Advances in neural information processing systems. 2013.
