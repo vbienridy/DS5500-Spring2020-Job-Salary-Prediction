@@ -1,0 +1,8 @@
+{
+	"data_path": "data/Train_rev1.csv",
+    "train_data_path": "data/train.csv",
+    "valid_data_path": "data/valid.csv",
+    "test_data_path": "data/test.csv",
+    "model_path": "data/model/",
+    "prediction_path": "data/prediction/"
+}

@@ -1,0 +1,157 @@
+---
+title: "EDA Notebook"
+author: "Tao Ouyang"
+date: "2020/3/10"
+output: html_document
+editor_options: 
+  chunk_output_type: console
+---
+
+```{r}
+# This R notebook is for exploratory data analysis
+# Date: 03/10/2020
+
+# set working directory
+setwd("D:/NEU/DS 5500/second project/code")
+set.seed(5500)
+```
+
+```{r}
+# import libraries
+library(readr)
+library(ggplot2)
+library(VIM)
+library(mice)
+```
+
+```{r}
+# load data
+train <- read_csv("data/Train_rev1.csv")
+valid <- read_csv("data/Valid_rev1.csv")
+test <- read_csv("data/Test_rev1.csv")
+# names(train)
+# names(valid)
+# names(test)
+```
+
+```{r}
+# exploratory data analysis
+
+# remove missing values for drawing plots
+train <- train[-which(is.na(train$Title)), ] # number of missing value is 1
+
+train_eda <- train[, c("SourceName", "ContractType", "ContractTime")]
+
+SourceName_set <- unique(train_eda$SourceName)
+n <- length(SourceName_set)
+
+for (i in 1:length(SourceName_set)) {
+  train_eda$SourceName[which(train_eda$SourceName==SourceName_set[i])] <- i
+}
+
+ggplot(data = train_eda, mapping = aes(x=SourceName, fill=factor(ContractType))) +
+  geom_histogram(stat="count", width=0.5) +
+  xlab("Source") + ylab("Number of Ads") +
+  ggtitle("Number of Ads for each Source (fill=ContractType)") + 
+  theme(axis.ticks = element_blank()) +
+  theme(axis.text.x = element_blank()) +
+  theme(plot.title = element_text(hjust = 0.5, size=15))
+
+ggplot(data = train_eda, mapping = aes(x=SourceName,fill=factor(ContractTime))) +
+  geom_histogram(stat="count", width=0.5) +
+  xlab("Source") + ylab("Number of Ads") +
+  ggtitle("Number of Ads for each Source (fill=ContractTime)") + 
+  theme(axis.ticks = element_blank()) +
+  theme(axis.text.x = element_blank()) +
+  theme(plot.title = element_text(hjust = 0.5, size=15))
+
+ggplot(data = train_eda, mapping = aes(x=ContractType, fill=factor(ContractTime))) +
+  geom_histogram(stat="count", width=0.5) + 
+  xlab("ContractType") + ylab("Number of Ads") +
+  ggtitle("Number of Ads for each ContractType (fill=ContractTime)") + 
+  theme(plot.title = element_text(hjust = 0.5, size=15))
+
+train_eda <- train[, c(2,3,4,6,7,9,11,12)]
+aggr(train_eda, numbers=F, sortCombs=T, sortVars=F, digits=4, labels=c("Title", "FD", "Location", "Type", "Time", "Category", "Salary", "Source"), axes=T, bars=T, prop=T)
+
+ggplot(data=train_eda, mapping=aes(x=ContractType, y=SalaryNormalized, fill=ContractType)) +
+  geom_boxplot() +
+  xlab("ContractType") + 
+  ylab("Salary") + ggtitle("Box plot of Salary (fill=ContractType)") +
+  theme(plot.title = element_text(hjust = 0.5))
+
+ggplot(data=train_eda, mapping=aes(x=ContractTime, y=SalaryNormalized, fill=ContractTime)) +
+  geom_boxplot() +
+  xlab("ContractTime") + ylab("Salary") + ggtitle("Box plot of Salary (fill=ContractTime)") + 
+  theme(plot.title = element_text(hjust = 0.5))
+
+ggplot(data=train_eda, mapping=aes(SalaryNormalized, fill=ContractType, alpha=0.2)) +
+  geom_density() +
+  xlab("Salary") + ylab("Density") + 
+  theme(plot.title = element_text(hjust = 0.5))
+
+ggplot(data=train_eda, mapping=aes(SalaryNormalized, fill=ContractTime, alpha=0.2)) +
+  geom_density() +
+  xlab("Salary") + ylab("Density") + ggtitle("Salary Distribution for ContractTime") + 
+  theme(plot.title = element_text(hjust = 0.5))
+
+ggplot(data=train_eda, mapping=aes(x=Category, y=SalaryNormalized, fill=Category)) +
+  geom_boxplot() +
+  xlab("Category") + ylab("Salary") +
+  theme(axis.ticks = element_blank()) +
+  theme(axis.text.x = element_blank()) +
+  theme(plot.title = element_text(hjust = 0.5))
+
+train_eda <- train[which(train$Category %in% c("IT Jobs", "Legal Jobs", 
+                                               "Maintenance Jobs", "Scientific & QA Jobs")), ]
+
+ggplot(data=train_eda, mapping=aes(SalaryNormalized, fill=Category, alpha=0.2)) +
+  geom_density() +
+  xlab("Salary") + ylab("Density") + 
+  theme(plot.title = element_text(hjust = 0.5, size=15))
+
+# number of characters distribution plots
+train_eda <- data.frame(train$Id, 
+                        nchar(train$Title),
+                        nchar(train$FullDescription),
+                        nchar(train$LocationRaw))
+colnames(train_eda) <- c("Id", "Title", "FullDescription", "LocationRaw")
+par(mfrow=c(1, 3))
+ggplot(data=train_eda, aes(Title, alpha=0.1)) +
+  geom_density(col=2, fill=2) +
+  xlab("Number of characters in Title") + ylab("Density") + 
+  ggtitle("Distribution of number of characters in Title") + 
+  theme(plot.title = element_text(hjust = 0.5))
+ggplot(data=train_eda, aes(FullDescription, alpha=0.1)) +
+  geom_density(col=2, fill=2) +
+  xlab("Number of characters in FullDescription") + ylab("Density") + 
+  ggtitle("Distribution of number of characters in FullDescription") + 
+  theme(plot.title = element_text(hjust = 0.5))
+ggplot(data=train_eda, aes(LocationRaw, alpha=0.1)) +
+  geom_density(col=2, fill=2) +
+  xlab("Number of characters in LocationRaw") + ylab("Density") + 
+  ggtitle("Distribution of number of characters in LocationRaw") + 
+  theme(plot.title = element_text(hjust = 0.5))
+```
+
+```{r}
+# data cleaning
+o <- train[which(is.na(train$SourceName)), ] # number of missing value is 1
+o1 <- train[which(train$Company=="Montash Limited"), ]
+train[which(is.na(train$SourceName)), 12] <- o1[1, 12]
+rm(o, o1)
+# According to the missing values in SourceName, we found that the corresponding company publishes its ads in only one Source.
+
+t <- cbind(nchar(train$FullDescription), 
+           nchar(train$LocationRaw), 
+           nchar(train$LocationNormalized))
+boxplot(t)
+summary(t) # V1 MIN too small, V2 MAX too large ?
+p1 <- train[which(nchar(train$FullDescription)==25), ] # ?
+p2 <- train[which(nchar(train$LocationRaw)==1682), ] # ?
+# here two samples are the same, could be typo error
+n <- which(nchar(train$LocationRaw)==1682)
+train[n, 3] <- train[n, 4]
+train[n, 4] <- "London"
+rm(t, p1, p2, n)
+```
