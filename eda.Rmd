@@ -133,25 +133,3 @@ ggplot(data=train_eda, aes(LocationRaw, alpha=0.1)) +
   ggtitle("Distribution of number of characters in LocationRaw") + 
   theme(plot.title = element_text(hjust = 0.5))
 ```
-
-```{r}
-# data cleaning
-o <- train[which(is.na(train$SourceName)), ] # number of missing value is 1
-o1 <- train[which(train$Company=="Montash Limited"), ]
-train[which(is.na(train$SourceName)), 12] <- o1[1, 12]
-rm(o, o1)
-# According to the missing values in SourceName, we found that the corresponding company publishes its ads in only one Source.
-
-t <- cbind(nchar(train$FullDescription), 
-           nchar(train$LocationRaw), 
-           nchar(train$LocationNormalized))
-boxplot(t)
-summary(t) # V1 MIN too small, V2 MAX too large ?
-p1 <- train[which(nchar(train$FullDescription)==25), ] # ?
-p2 <- train[which(nchar(train$LocationRaw)==1682), ] # ?
-# here two samples are the same, could be typo error
-n <- which(nchar(train$LocationRaw)==1682)
-train[n, 3] <- train[n, 4]
-train[n, 4] <- "London"
-rm(t, p1, p2, n)
-```
