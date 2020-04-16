@@ -4,5 +4,6 @@
     "valid_data_path": "data/valid.csv",
     "test_data_path": "data/test.csv",
     "model_path": "data/model/",
-    "prediction_path": "data/prediction/"
+    "prediction_path": "data/prediction/",
+    "feature_path": "data/feature/"
 }
